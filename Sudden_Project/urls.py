@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    #by changing 'admin' url, you'll make discovering admin page harder by bad people ;) 
+    path('not_admin/', admin.site.urls),
     path('blogs/', include("Blogs.urls")),
 ]
