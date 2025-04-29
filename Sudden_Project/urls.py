@@ -24,13 +24,14 @@ def readme_view(request):
     #serving the README.md file as Home page
     from django.shortcuts import render
     
-    return render(request, "index.html")
+    return render(request, "docs.html")
 
 
 urlpatterns = [
     #by changing 'admin' url, you'll make discovering admin page harder by bad people ;) 
     path('not_admin/', admin.site.urls),
     path('blogs/', include("Blogs.urls")),
-    path('', readme_view, name="readme"),
+    path('docs/', readme_view, name="docs"),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
+
