@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if idea_list %}
+    <ul>
+    {% for idea in idea_list %}
+    <li><a href="{% url 'blogs:idea_detail' idea.id %}">{{ idea.topic }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No Ideas are available.</p>
+{% endif %}
+
+{% endblock %}
