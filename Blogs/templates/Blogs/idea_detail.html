@@ -1,11 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Topic:</h1>
-<h3> {{ idea_ob.topic }} </h3>
-<br>
-<h1>Body:</h1>
-<h3> {{ idea_ob.body }} </h3>
-<br>
-<h1>Publish date: </h1>
-<h3> {{ idea_ob.pub_date }} </h3>
+
+<form action="{% url 'blogs:like_idea' idea.id %}" method="post">
+{% csrf_token %}
+<fieldset>
+    <legend><h1>{{ idea.topic }}</h1></legend>
+    <h1>Body:</h1>
+    <h3> {{ idea.body }} </h3>
+    <br>
+    <h1>Publish date: </h1>
+    <h3> {{ idea.pub_date }} </h3>
+    <h1>likes: </h1>
+    <h3> {{ idea.likes }} </h3>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+</fieldset>
+<button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Like</button>
+</form>
 {% endblock %}
