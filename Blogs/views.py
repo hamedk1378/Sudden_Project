@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import F
 from django.urls import reverse
 from django.views import generic
+from django.utils import timezone
 from . import models as b_models
 
 
@@ -11,7 +12,7 @@ class IdeasIndexView(generic.ListView):
     context_object_name = "idea_list"
 
     def get_queryset(self):
-        return b_models.Idea.objects.order_by("-pub_date")[:3]
+        return b_models.Idea.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:3]
 
 
 class IdeaDetailView(generic.DetailView):

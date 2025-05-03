@@ -17,7 +17,8 @@ class BaseContent(models.Model):
         abstract = True
 
     def is_recently_published(self):
-        return self.pub_date >= timezone.now() - timedelta(days = 3)
+        now = timezone.now()
+        return now >= self.pub_date >= now - timedelta(days = 3)
 
 
 class Idea(BaseContent):
