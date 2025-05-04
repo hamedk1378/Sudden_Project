@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import environ
+import sys
 
 env = environ.Env(
         DEBUG=(bool, False)
@@ -31,7 +32,8 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
+INTERNAL_IPS = ['127.0.0.1']
 
 
 # Application definition
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #My Apps
     'Blogs.apps.BlogsConfig',
+    #Third Part Apps
 ]
 
 
@@ -131,6 +134,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
         BASE_DIR / 'static',
+        #It's better to address your static and media files with django_envirn to make your code more
+        #secure and convenient to switch for example between develpment and production.
+        # env("STATICFILES_DIRS")
     ]
 
 
@@ -138,3 +144,13 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+TESTING = "test" in sys.argv
+
+if not TESTING:
+    MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
+    INSTALLED_APPS.append('debug_toolbar')
+
+
